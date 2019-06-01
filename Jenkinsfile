@@ -1,5 +1,6 @@
 DOCKER_IMAGE_NAME = 'gcr.io/organic-storm-201412/fetch-ledger-develop:v0.2.0'
 HIGH_LOAD_NODE_LABEL = 'ledger'
+MACOS_NODE_LABEL = 'mac-mini'
 
 enum Platform
 {
@@ -69,7 +70,7 @@ def SLOW_stage(name, steps)
   }
 }
 
-def create_build(Platform platform, Configuration config)
+def create_build(Platform platform, Configuration config, node_label)
 {
   def suffix = "${platform.label} ${config.label}"
 
@@ -82,7 +83,7 @@ def create_build(Platform platform, Configuration config)
 
   return {
     stage(suffix) {
-      node(HIGH_LOAD_NODE_LABEL) {
+      node(node_label) {
         timeout(120) {
           stage("SCM ${suffix}") {
             checkout scm
@@ -124,9 +125,11 @@ def run_builds_in_parallel()
 
   for (config in Configuration.values()) {
     for (platform in Platform.values()) {
-      stages["${platform.label} ${config.label}"] = create_build(platform, config)
+      stages["${platform.label} ${config.label}"] = create_build(platform, config, HIGH_LOAD_NODE_LABEL)
+      stages["macOS ${platform.label} ${config.label}"] = create_build(platform, config, MACOS_NODE_LABEL)
     }
   }
+
 
   stages['Static Analysis'] = static_analysis()
 
