@@ -126,10 +126,11 @@ def run_builds_in_parallel()
   for (config in Configuration.values()) {
     for (platform in Platform.values()) {
       stages["${platform.label} ${config.label}"] = create_build(platform, config, HIGH_LOAD_NODE_LABEL)
-      stages["macOS ${platform.label} ${config.label}"] = create_build(platform, config, MACOS_NODE_LABEL)
+//      stages["macOS ${platform.label} ${config.label}"] = create_build(platform, config, MACOS_NODE_LABEL)
     }
   }
 
+  stages['macOS Clang 6 Release'] = create_build(Platform.CLANG6, Configuration.RELEASE, MACOS_NODE_LABEL)
 
   stages['Static Analysis'] = static_analysis()
 
