@@ -4,7 +4,8 @@ HIGH_LOAD_NODE_LABEL = 'ledger'
 enum Platform
 {
   CLANG6('Clang 6', 'clang-6.0', 'clang++-6.0'),
-  GCC7  ('GCC 7',   'gcc',       'g++')
+  GCC7  ('GCC 7',   'gcc-7',       'g++-7'),
+  GCC8  ('GCC 8',   'gcc-8',       'g++-8')
 
   public Platform(label, cc, cxx)
   {
