@@ -36,7 +36,7 @@ public:
   explicit Reactor(std::string name);
   Reactor(Reactor const &) = delete;
   Reactor(Reactor &&)      = delete;
-  ~Reactor()               = default;
+  ~Reactor();
 
   bool Attach(WeakRunnable runnable);   // NOLINT
   bool Attach(WeakRunnables runnable);  // NOLINT
@@ -58,12 +58,15 @@ private:
   void StartWorker();
   void StopWorker();
   void Monitor();
+  void ReactorWatch();
 
   std::string const name_;
   Flag              running_{false};
 
   RunnableMap work_map_{};
   ThreadPtr   worker_{};
+  ThreadPtr   watcher_{};
+  uint64_t    execution_too_long_ms_{200};
 };
 
 }  // namespace core

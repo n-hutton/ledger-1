@@ -82,7 +82,6 @@ public:
 
   using ConstByteArray  = byte_array::ConstByteArray;
   using StateMachine    = core::StateMachine<State>;
-  using StateMachinePtr = std::shared_ptr<StateMachine>;
   using MuddleAddress   = ConstByteArray;
   using Identity        = crypto::Identity;
 
