@@ -216,6 +216,8 @@ BeaconService::State BeaconService::OnReloadOnStartup()
   {
     FETCH_LOG_INFO(LOGGING_NAME, "Reloading state on startup");
     ReloadState();
+
+    FETCH_LOG_INFO(LOGGING_NAME, "After reloading state, we have ", completed_block_entropy_.size(), " completed block entropy");
   }
   else
   {
