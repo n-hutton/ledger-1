@@ -168,7 +168,7 @@ protected:
 
   // Related to recovering state after a crash
   /// @{
-  uint16_t const save_periodicity = 100;
+  uint16_t const save_periodicity_ = 10;
   OldStateStore  old_state_;
   void           ReloadState();
   void           SaveState();

@@ -261,8 +261,6 @@ BeaconService::State BeaconService::OnWaitForSetupCompletionState()
   // to produce random numbers.
   if (!aeon_exe_queue_.empty())
   {
-    SaveState();
-
     active_exe_unit_ = aeon_exe_queue_.front();
     aeon_exe_queue_.pop_front();
 
@@ -303,9 +301,9 @@ BeaconService::State BeaconService::OnPrepareEntropyGeneration()
 
   // Save state to disk in case of crash - it should return to this
   // state in the state machine with all relevant items setup
-  if ((index % save_periodicity) == 0)
+  if ((index % save_periodicity_) == 0)
   {
-    FETCH_LOG_DEBUG(LOGGING_NAME, "Periodically saving the entropy information");
+    FETCH_LOG_INFO(LOGGING_NAME, "Periodically saving the entropy information");
     SaveState();
   }
 
