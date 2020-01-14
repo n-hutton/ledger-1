@@ -208,6 +208,20 @@ BeaconService::State BeaconService::OnReloadOnStartup()
     return state_after_reload_;
   }
 
+  std::random_device dev;
+  std::mt19937 rng(dev());
+  std::uniform_int_distribution<std::mt19937::result_type> dist6(0,1); // distribution in range [1, 6]
+
+  if(dist6(rng))
+  {
+    FETCH_LOG_INFO(LOGGING_NAME, "Reloading state on startup");
+    ReloadState();
+  }
+  else
+  {
+    FETCH_LOG_INFO(LOGGING_NAME, "NOT Reloading state on startup");
+  }
+
   return state_after_reload_;
 }
 
